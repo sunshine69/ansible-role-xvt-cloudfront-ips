@@ -15,11 +15,3 @@
     policy_name: "xvt-{{ vpc_name }}-cloudfront-ips"
     state: present
     policy_document: "{{ role_path }}/files/cloudfront-ips.json"
-
-- name: Assign Lambda policy to CloudFront role 
-  iam_policy:
-    iam_type: role
-    iam_name: "xvt-{{ vpc_name }}-cloudfront-ips"
-    policy_name: "xvt-{{ vpc_name }}-cloudfront-ips"
-    state: present
-    policy_document: "{{ role_path }}/files/cloudfront-ips.json"

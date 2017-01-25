@@ -13,7 +13,7 @@
     fact_lambda_arn: "{{register_discovered_lambda.ansible_facts.lambda_facts.function[fact_lambda_name].function_arn}}"
 
 - name: Subscribe our Lambda to AWS' IP SNS
-  command: "aws sns subscribe --topic-arn arn:aws:sns:us-east-1:806199016981:AmazonIpSpaceChanged --protocol lambda --notification-endpoint {{fact_lambda_arn}}"
+  command: "aws sns subscribe --topic-arn {{aws_ip_space_sns_arn}} --protocol lambda --notification-endpoint {{fact_lambda_arn}}"
   environment:
     # We have to switch regions because the SNS topic we're subbing to
     # was created in us-east-1, so we have to create the subscription there.
