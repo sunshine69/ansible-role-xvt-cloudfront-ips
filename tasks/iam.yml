@@ -20,6 +20,6 @@
   iam_policy:
     iam_type: role
     iam_name: "xvt-{{ vpc_name }}-cloudfront-ips"
-    policy_name: ""
+    policy_name: "xvt-{{ vpc_name }}-cloudfront-ips"
     state: present
     policy_document: "{{ role_path }}/files/cloudfront-ips.json"
