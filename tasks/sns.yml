@@ -12,7 +12,7 @@
 - set_fact:
     fact_lambda_arn: "{{register_discovered_lambda.ansible_facts.lambda_facts.function[fact_lambda_name].function_arn}}"
 
-- name: Subscribe our Lambda to AWS' IP SNS
+- name: Subscribe our Lambda to the AWS provided IP SNS topic
   command: "aws sns subscribe --topic-arn {{aws_ip_space_sns_arn}} --protocol lambda --notification-endpoint {{fact_lambda_arn}}"
   environment:
     # We have to switch regions because the SNS topic we're subbing to
