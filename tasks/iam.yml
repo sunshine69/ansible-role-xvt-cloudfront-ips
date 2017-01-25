@@ -1,0 +1,25 @@
+---
+
+- name: Create a role for attaching to the Lambda
+  iam:
+    iam_type: role
+    name: "xvt-{{ vpc_name }}-cloudfront-ips"
+    trust_policy_filepath: "{{ role_path }}/files/lambda-trust-policy.json"
+    state: present
+  register: registered_iam_role
+
+- name: Assign CloudFront SG IP policy to CloudFront role 
+  iam_policy:
+    iam_type: role
+    iam_name: "xvt-{{ vpc_name }}-cloudfront-ips"
+    policy_name: "xvt-{{ vpc_name }}-cloudfront-ips"
+    state: present
+    policy_document: "{{ role_path }}/files/cloudfront-ips.json"
+
+- name: Assign Lambda policy to CloudFront role 
+  iam_policy:
+    iam_type: role
+    iam_name: "xvt-{{ vpc_name }}-cloudfront-ips"
+    policy_name: ""
+    state: present
+    policy_document: "{{ role_path }}/files/cloudfront-ips.json"

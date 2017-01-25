@@ -1,0 +1,8 @@
+galaxy_info:
+  author: Michael Crilly <michael.crilly@xvt.com.au>
+  description: CloudFront IP-to-SG Lambda function management
+  company: XVT
+  license: Copyright XVT
+  min_ansible_version: 2.2
+  galaxy_tags: []
+dependencies: []

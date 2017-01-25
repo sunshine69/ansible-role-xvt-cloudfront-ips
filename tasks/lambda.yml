@@ -1,0 +1,22 @@
+---
+
+- name: Template Python script before zipping it up
+  template:
+    src: lambda-handler.py 
+    dest: "/tmp/xvt-{{ vpc_name }}-cloudfront-ips.py"
+  delegate_to: localhost
+
+- name: Compress Python file so it can uploaded
+  command: "zip -c xvt-{{ vpc_name }}-cloudfront-ips.zip xvt-{{ vpc_name }}-cloudfront-ips.py"
+  args:
+    chdir: /tmp
+  delegate_to: localhost
+
+- name: Create CloudFront IP managed Lambda
+  lambda:
+    name: "xvt-{{ vpc_name }}-cloudfront-ips"
+    state: present
+    zip_file: "/tmp/xvt-{{ vpc_name }}-cloudfront-ips.zip"
+    runtime: python2.7
+    role: "xvt-{{ vpc_name }}-cloudfront-ips"
+    handler: "xvt-{{ vpc_name }}-cloudfront-ips.lambda_handler"
