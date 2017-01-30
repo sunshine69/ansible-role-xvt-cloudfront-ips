@@ -1,8 +1,11 @@
 # XVT CloudFront IP Update
 
-This role will create a Lambda function which then subscribes to the `AmazonIpSpaceChanged` SNS topic. This topic receives periodic updates regarding AWS' public IP namespace(s). These updates are utilised by the Lambda function to update Security Group (SG) inbound rule tables.
+This role will create a Lambda function which then subscribes to the `AmazonIpSpaceChanged` SNS topic. This topic
+receives periodic updates regarding AWS' public IP namespace(s). These updates are utilised by the Lambda function to
+update Security Group (SG) inbound rule tables.
 
-You would need to use this role in the event you're using CloudFront to restrict access to an ELB and the resources it manages, but only want CloudFront talking to the ELB (the alternative in `0.0.0.0/0`)
+You would need to use this role in the event you're using CloudFront to restrict access to an ELB and the resources it
+manages, but only want CloudFront talking to the ELB (the alternative in `0.0.0.0/0`)
 
 ## Requirements
 
