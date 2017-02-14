@@ -2,14 +2,24 @@
 
 - name: Create a role for attaching to the Lambda
   iam:
+    region: "{{ region }}"
+    profile: "{{ aws_account_name }}"
     iam_type: role
     name: "xvt-{{ vpc_name }}-cloudfront-ips"
     trust_policy_filepath: "{{ role_path }}/files/lambda-trust-policy.json"
     state: present
   register: registered_iam_role
 
-- name: Assign CloudFront SG IP policy to CloudFront role 
+# See this http://stackoverflow.com/questions/36419442/the-role-defined-for-the-function-cannot-be-assumed-by-lambda
+# Without this I hit the error The role defined for the function cannot be assumed by Lambda
+- name: sleeping for 10 sec for the role to be available.
+  pause: seconds=10
+  when: registered_iam_role.changed
+
+- name: Assign CloudFront SG IP policy to CloudFront role
   iam_policy:
+    region: "{{ region }}"
+    profile: "{{ aws_account_name }}"
     iam_type: role
     iam_name: "xvt-{{ vpc_name }}-cloudfront-ips"
     policy_name: "xvt-{{ vpc_name }}-cloudfront-ips"

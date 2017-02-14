@@ -2,6 +2,8 @@
 
 - name: List function versions
   lambda_facts:
+    region: "{{ region }}"
+    profile: "{{ aws_account_name }}"
     query: all
     name: "xvt-{{ vpc_name }}-cloudfront-ips"
   register: register_discovered_lambda
@@ -13,7 +15,7 @@
     fact_lambda_arn: "{{register_discovered_lambda.ansible_facts.lambda_facts.function[fact_lambda_name].function_arn}}"
 
 - name: Subscribe our Lambda to the AWS provided IP SNS topic
-  command: "aws sns subscribe --topic-arn {{aws_ip_space_sns_arn}} --protocol lambda --notification-endpoint {{fact_lambda_arn}}"
+  command: "aws --profile {{profile}} sns subscribe --topic-arn {{aws_ip_space_sns_arn}} --protocol lambda --notification-endpoint {{fact_lambda_arn}}"
   environment:
     # We have to switch regions because the SNS topic we're subbing to
     # was created in us-east-1, so we have to create the subscription there.

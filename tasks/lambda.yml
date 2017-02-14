@@ -2,7 +2,7 @@
 
 - name: Template Python script before zipping it up
   template:
-    src: lambda-handler.py 
+    src: lambda-handler.py
     dest: "/tmp/xvt-{{ vpc_name }}-cloudfront-ips.py"
   connection: localhost
 
@@ -15,6 +15,8 @@
 
 - name: Create CloudFront IP managed Lambda
   lambda:
+    region: "{{ region }}"
+    profile: "{{ aws_account_name }}"
     name: "xvt-{{ vpc_name }}-cloudfront-ips"
     state: present
     zip_file: "/tmp/xvt-{{ vpc_name }}-cloudfront-ips.zip"
