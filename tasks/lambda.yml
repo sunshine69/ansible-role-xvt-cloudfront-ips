@@ -4,14 +4,14 @@
   template:
     src: lambda-handler.py
     dest: "/tmp/xvt-{{ vpc_name }}-cloudfront-ips.py"
-  connection: localhost
+  connection: local
 
   # TODO: Use archive module when we switch to Ansible 2.3
 - name: Compress Python file so it can uploaded
   command: "zip -c xvt-{{ vpc_name }}-cloudfront-ips.zip xvt-{{ vpc_name }}-cloudfront-ips.py"
   args:
     chdir: /tmp
-  connection: localhost
+  connection: local
 
 - name: Create CloudFront IP managed Lambda
   lambda:
@@ -31,4 +31,4 @@
   with_items:
     - "/tmp/xvt-{{ vpc_name }}-cloudfront-ips.zip"
     - "/tmp/xvt-{{ vpc_name }}-cloudfront-ips.py"
-  connection: localhost
+  connection: local
