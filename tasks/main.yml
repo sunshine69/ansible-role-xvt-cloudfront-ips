@@ -1,5 +1,5 @@
 ---
 
-- include: iam.yml
-- include: lambda.yml
-- include: sns.yml
+- import_tasks: iam.yml
+- import_tasks: lambda.yml
+- import_tasks: sns.yml
