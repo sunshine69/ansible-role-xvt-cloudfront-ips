@@ -3,7 +3,7 @@
 - name: List function versions
   lambda_facts:
     region: "{{ region }}"
-    profile: "{{ aws_account_name }}"
+    profile: "{{ profile|default(omit) }}"
     query: all
     name: "xvt-{{ vpc_name }}-cloudfront-ips"
   register: register_discovered_lambda
