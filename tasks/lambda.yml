@@ -21,6 +21,7 @@
     state: present
     zip_file: "/tmp/xvt-{{ vpc_name }}-cloudfront-ips.zip"
     runtime: python2.7
+    timeout: 30
     role: "xvt-{{ vpc_name }}-cloudfront-ips"
     handler: "xvt-{{ vpc_name }}-cloudfront-ips.lambda_handler"
 
